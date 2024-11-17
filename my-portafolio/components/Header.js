@@ -1,24 +1,64 @@
-// components/Header.js
-import Link from "next/link";
+"use client"; // Add this at the top of the file
 
-export default function Header() {
+import { useState, useEffect } from "react";
+
+const StickyHeader = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="flex justify-between items-center p-5 bg-gray-800 text-white">
-      <h1 className="text-2xl font-bold">My Portfolio</h1>
-      <nav className="space-x-4">
-        <Link href="#about" className="hover:text-blue-400 transition">
-          About
-        </Link>
-        <Link href="#skills" className="hover:text-blue-400 transition">
-          Skills
-        </Link>
-        <Link href="#projects" className="hover:text-blue-400 transition">
-          Projects
-        </Link>
-        <Link href="#contact" className="hover:text-blue-400 transition">
-          Contact
-        </Link>
-      </nav>
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/60 backdrop-blur-md shadow-lg transition ease-in-out delay-150"
+          : "invisible "
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="text-lg font-bold text-gray-800">My Logo</div>
+          <nav>
+            <ul className="flex space-x-4">
+              <li>
+                <a
+                  href="#home"
+                  className="text-gray-800 hover:text-gray-600 transition"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className="text-gray-800 hover:text-gray-600 transition"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="text-gray-800 hover:text-gray-600 transition"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
   );
-}
+};
+
+export default StickyHeader;

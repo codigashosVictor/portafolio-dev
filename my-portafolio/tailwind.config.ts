@@ -7,6 +7,10 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      display: ["Source Serif Pro", "Georgia", "serif"],
+      body: ["Synonym", "system-ui", "sans-serif"],
+    },
     extend: {
       colors: {
         background: "var(--background)",
